@@ -134,9 +134,6 @@ void swapNodes(int indexA, int indexB)
             currB->next = currA;
             currA->next = t;
         }
-    }//swap body and tail node
-    else{
-        printf("To be coded\n");
     }
 }
 
