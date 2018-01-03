@@ -23,6 +23,7 @@ void insert(int value, int position, linkedList **list);
 void delete(int value, linkedList **list);
 void deletePos(int position, linkedList **list);
 void reversePrint(newNode *head);
+void reverseList(linkedList **list, newNode *node);
 
 int main()
 {
@@ -46,6 +47,7 @@ int main()
 
     printf("\nList 2: ");
     print(&list2);
+
     printf("\nAfter Insert\n");
     insert(23, 13, &list1);
     insert(34, 3, &list1);
@@ -97,6 +99,10 @@ int main()
 
     printf("\nReverse printing linked list\n"); 
     reversePrint(list1->head);
+
+    printf("\nReversing the linked list\n");
+    reverseList(&list1, list1->head);
+    print(&list1);
     return 0;
 }
 
@@ -268,4 +274,26 @@ void reversePrint(newNode *head)
     }
     reversePrint(t->next);
     printf("%d ", *(int*)(t->data));
+}
+
+void reverseList(linkedList **list, newNode *node)
+{
+    newNode *curr = node, *prev = node;
+    newNode *prevHead = (*list)->head;  //store the old head
+
+    if(curr->next == NULL){
+        (*list)->head = curr;   //move the head to tail
+        return;
+    }
+
+    prev = curr;
+    curr = curr->next;
+
+    reverseList(list, curr);
+
+    curr->next = prev;
+
+    if(prev == prevHead){
+        prev->next = NULL;  //to prevent infinite loop
+    }
 }
